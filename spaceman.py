@@ -87,14 +87,25 @@ def spaceman(secret_word):
 
     #TODO: show the player information about the game according to the project spec
     welcome_message = "Welcome to Spaceman! Spaceman is a guessing game. There is a mystery word which you will try to guess one letter at a time. A placeholder is initially shown, with the number of blanks corresponding to the number of letters in the word. If the letter is in the mystery word, the position(s) of the letter(s) are revealed in the placeholders. Guess the word before you run out of guesses!You win if you can guess the mystery word before the spaceman is drawn. The spaceman is made up of seven parts, and each part is drawn for each incorrect guess. If all seven parts get drawn before the you guess the word, then you lose."
-    print(welcome_message)
 
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
-    input()
+    attempts = len(secret_word)
+    letters_guessed = []
+
+    print(welcome_message)
+    print(f"Guess the {len(secret_word)}-letter word!")
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
+    while attempts > 0: 
+        guess = input("Enter a letter:").lower()
+        #check if the guess is valid
+        if len(guess) != 1 or not guess.isalpha():
+            print("Invalid input. Please enter a single letter.")
+            continue
+        if guess in letters_guessed:
+            print(f"You've already guessed '{guess}'. Try a different letter.")
+        letters_guessed.append(guess)
     #TODO: show the guessed word so far
 
     #TODO: check if the game has been won or lost
