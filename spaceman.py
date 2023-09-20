@@ -8,9 +8,8 @@ def load_word():
     Returns: 
            string: The secret word to be used in the spaceman guessing game
     '''
-    f = open('words.txt', 'r')
-    words_list = f.readlines()
-    f.close()
+    with open('words.txt', 'r') as f:
+        words_list = f.readlines()
     
     words_list = words_list[0].split(' ') #comment this line out if you use a words.txt file with each word on a new line
     secret_word = random.choice(words_list)
@@ -35,7 +34,7 @@ def is_word_guessed(secret_word, letters_guessed):
 
 def get_guessed_word(secret_word, letters_guessed):
     guessed_word = ""
-    if letter in letters_guessed:
+    for letter in secret_word:
         guessed_word += letter 
     else:
         guessed_word += "_"
@@ -69,6 +68,7 @@ def is_guess_in_word(guess, secret_word):
 
     '''
     #TODO: check if the letter guess is in the secret word
+    return guess in secret_word
 
     pass
 
@@ -86,8 +86,12 @@ def spaceman(secret_word):
 
 
     #TODO: show the player information about the game according to the project spec
+    welcome_message = "Welcome to Spaceman! Spaceman is a guessing game. There is a mystery word which you will try to guess one letter at a time. A placeholder is initially shown, with the number of blanks corresponding to the number of letters in the word. If the letter is in the mystery word, the position(s) of the letter(s) are revealed in the placeholders. Guess the word before you run out of guesses!You win if you can guess the mystery word before the spaceman is drawn. The spaceman is made up of seven parts, and each part is drawn for each incorrect guess. If all seven parts get drawn before the you guess the word, then you lose."
+    print(welcome_message)
+
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
+    input()
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
 
