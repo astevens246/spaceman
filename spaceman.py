@@ -19,6 +19,7 @@ def is_word_guessed(secret_word, letters_guessed):
     for letter in secret_word:
         if letter not in letters_guessed:
             return False
+    return True
     '''
     A function that checks if all the letters of the secret word have been guessed.
 
@@ -35,9 +36,10 @@ def is_word_guessed(secret_word, letters_guessed):
 def get_guessed_word(secret_word, letters_guessed):
     guessed_word = ""
     for letter in secret_word:
-        guessed_word += letter 
-    else:
-        guessed_word += "_"
+        if letter in letters_guessed:
+            guessed_word += letter 
+        else:
+            guessed_word += "_"
     return guessed_word
     '''
     A function that is used to get a string showing the letters guessed so far in the secret word and underscores for letters that have not been guessed yet.
@@ -90,11 +92,13 @@ def spaceman(secret_word):
 
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
-    attempts = len(secret_word)
-    letters_guessed = []
-
     print(welcome_message)
     print(f"Guess the {len(secret_word)}-letter word!")
+   
+    attempts = 7
+    letters_guessed = []
+
+    
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
     while attempts > 0: 
@@ -105,12 +109,29 @@ def spaceman(secret_word):
             continue
         if guess in letters_guessed:
             print(f"You've already guessed '{guess}'. Try a different letter.")
+            continue
         letters_guessed.append(guess)
     #TODO: show the guessed word so far
+        current_guess= get_guessed_word(secret_word, letters_guessed)
+        print(f"Current word so far: {current_guess}")
 
     #TODO: check if the game has been won or lost
 
+        if is_guess_in_word(guess, secret_word):
+            print("Correct guess!")
+        else:
+             print("Incorrect guess.")
+             attempts -= 1
 
+        current_guess = get_guessed_word(secret_word, letters_guessed)
+        print(f"Current word: {current_guess}")
+
+        if is_word_guessed(secret_word, letters_guessed):
+            print("Congratulations! You've won!")
+            break
+
+        if attempts == 0:
+            print(f"Sorry, you've run out of attempts. The secret word was '{secret_word}'.")
 
 
 
